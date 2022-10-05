@@ -1,0 +1,25 @@
+version: "3.7"
+
+services:
+  theia:
+    container_name: general.theia3
+    #build: ./
+    image: aronmgv/theia:1.30.0
+    restart: always
+    user: root
+    ports:
+      - 50114:3000
+    volumes:
+      - $PWD/projects:/home/project:cached
+      - /docker/fitness:/home/project/PROD/fitness:rw
+      - /lvm/raid/private/drive/@DEVEL:/home/project/PRIVATE:rw
+      - /lvm/raid/private/drive/@DEVEL/#HOWTO:/home/project/#HOWTO:rw
+      - /lvm/raid/public/backups/michal/ATT/DEVEL:/home/project/WORK:rw
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+
+networks:
+  default:
+    name: general.theia3
